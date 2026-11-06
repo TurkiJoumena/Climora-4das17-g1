@@ -1,22 +1,22 @@
-#  Climora
+# 🌦️ Climora
 
 **Weather Monitoring and Forecasting Platform Based on Microservices Architecture**
 
-Climora is a weather monitoring platform designed to provide real-time weather information, forecasts, historical data, and weather alerts through a microservices-based architecture.
+Climora is a weather monitoring platform designed to provide weather information, forecasts, historical data, alerts, and personalized activity planning through a microservices-based architecture.
 
-##  Project Structure
+## 📁 Project Structure
 
 ```text
 Climora/
 │
 ├── Backend/
-│   ├── MS1-User-Service/
-│   ├── MS2-Location-Service/
-│   ├── MS3-Weather-Service/
-│   ├── MS4-Forecast-Service/
-│   ├── MS5-Alert-Service/
-│   ├── MS6-History-Service/
-│   └── MS7-Notification-Service/
+│   ├── MS1-Localisation/
+│   ├── MS2-Stations-Sources/
+│   ├── MS3-Meteo-Actuelle/
+│   ├── MS4-Alertes-Notifications/
+│   ├── MS5-Previsions/
+│   ├── MS6-Planificateur-Activites/
+│   └── MS7-Signalements/
 │
 ├── Frontend/
 │
@@ -27,22 +27,36 @@ Climora/
 └── README.md
 ```
 
-## ⚙️ Microservices
+## ⚙️ Microservices Architecture
 
-| Microservice | Responsibility |
-|---|---|
-| MS1 – User Service | User management and authentication |
-| MS2 – Location Service | Location management and favorite cities |
-| MS3 – Weather Service | Current weather information |
-| MS4 – Forecast Service | Weather forecasting |
-| MS5 – Alert Service | Weather alerts and warnings |
-| MS6 – History Service | Historical weather data and statistics |
-| MS7 – Notification Service | User notifications |
+| Microservice | Responsibility | Database |
+|---|---|---|
+| MS1 – Location Service | City and location management | H2 |
+| MS2 – Stations & Sources Service | Weather stations and data source management | H2 |
+| MS3 – Current Weather Service | Real-time weather measurements | MongoDB |
+| MS4 – Alerts & Notifications Service | Weather alerts and notification management | MySQL |
+| MS5 – Forecast Service | Weather forecasts for the next 7 days | MongoDB |
+| MS6 – Activity Planner Service | Activity recommendations and evaluations | PostgreSQL |
+| MS7 – Reports Service | User weather reports and voting | PostgreSQL |
+
+## 🗄️ Database Architecture
+
+Each microservice has its own dedicated database:
+
+- **MS1:** `localisation_db` – H2
+- **MS2:** `sources_db` – H2
+- **MS3:** `meteo_db` – MongoDB
+- **MS4:** `alertes_db` – MySQL
+- **MS5:** `previsions_db` – MongoDB
+- **MS6:** `activites_db` – PostgreSQL
+- **MS7:** `signalements_db` – PostgreSQL
 
 ## 🛠️ Technologies
 
-Technologies and tools will be specified as the project development progresses.
+Technologies and development tools will be documented as the project progresses.
 
-## 👥 Contributors
+## 📚 Documentation
 
-Project developed as part of an academic project.
+- **Presentation:** Project presentation and overview.
+- **Diagrams:** Architecture diagrams and UML models.
+
