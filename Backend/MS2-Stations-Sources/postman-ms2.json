@@ -1,0 +1,28 @@
+{
+  "info": { "name": "Climora MS2 - Stations & sources", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "variable": [ { "key": "base", "value": "http://localhost:8082" } ],
+  "item": [
+    { "name": "1 - creer source METAR", "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "url": "{{base}}/api/sources",
+      "body": { "mode": "raw", "raw": "{\n  \"nom\": \"AviationWeather METAR\",\n  \"urlApi\": \"https://aviationweather.gov/api/data/metar\",\n  \"urlTest\": \"https://aviationweather.gov/api/data/metar?ids=DTTA&format=json\",\n  \"typeDonnees\": \"OBSERVATION\",\n  \"modeAcces\": \"STATION\",\n  \"priorite\": 1\n}" } } },
+    { "name": "2 - creer source Open-Meteo (previsions)", "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "url": "{{base}}/api/sources",
+      "body": { "mode": "raw", "raw": "{\n  \"nom\": \"Open-Meteo\",\n  \"urlApi\": \"https://api.open-meteo.com/v1/forecast\",\n  \"urlTest\": \"https://api.open-meteo.com/v1/forecast?latitude=36.8&longitude=10.2&current=temperature_2m\",\n  \"typeDonnees\": \"PREVISION\",\n  \"modeAcces\": \"COORDONNEES\",\n  \"priorite\": 1\n}" } } },
+    { "name": "3 - activer source 1", "request": { "method": "PATCH", "url": "{{base}}/api/sources/1/activation" } },
+    { "name": "4 - activer source 2", "request": { "method": "PATCH", "url": "{{base}}/api/sources/2/activation" } },
+    { "name": "5 - ajouter station Tunis-Carthage", "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "url": "{{base}}/api/sources/1/stations",
+      "body": { "mode": "raw", "raw": "{ \"nom\": \"Tunis-Carthage\", \"codeExterne\": \"DTTA\", \"latitude\": 36.851, \"longitude\": 10.227 }" } } },
+    { "name": "6 - ajouter station Monastir", "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "url": "{{base}}/api/sources/1/stations",
+      "body": { "mode": "raw", "raw": "{ \"nom\": \"Monastir\", \"codeExterne\": \"DTMB\", \"latitude\": 35.758, \"longitude\": 10.755 }" } } },
+    { "name": "7 - ajouter station Enfidha", "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "url": "{{base}}/api/sources/1/stations",
+      "body": { "mode": "raw", "raw": "{ \"nom\": \"Enfidha\", \"codeExterne\": \"DTNH\", \"latitude\": 36.074, \"longitude\": 10.436 }" } } },
+    { "name": "8 - source active OBSERVATION", "request": { "method": "GET", "url": "{{base}}/api/sources/active?type=OBSERVATION" } },
+    { "name": "9 - stations proches de Sousse", "request": { "method": "GET", "url": "{{base}}/api/stations/proches?lat=35.83&lon=10.61&rayon=50" } },
+    { "name": "10 - Monastir en maintenance", "request": { "method": "PATCH", "header": [ { "key": "Content-Type", "value": "application/json" } ], "url": "{{base}}/api/stations/2/statut",
+      "body": { "mode": "raw", "raw": "{ \"statut\": \"MAINTENANCE\" }" } } },
+    { "name": "11 - stations proches de Sousse (sans Monastir)", "request": { "method": "GET", "url": "{{base}}/api/stations/proches?lat=35.83&lon=10.61&rayon=50" } },
+    { "name": "12 - source inconnue (404)", "request": { "method": "GET", "url": "{{base}}/api/sources/999" } },
+    { "name": "13 - source sans nom (400)", "request": { "method": "POST", "header": [ { "key": "Content-Type", "value": "application/json" } ], "url": "{{base}}/api/sources",
+      "body": { "mode": "raw", "raw": "{ \"nom\": \"\", \"urlApi\": \"x\", \"urlTest\": \"x\", \"typeDonnees\": \"OBSERVATION\", \"modeAcces\": \"STATION\", \"priorite\": 1 }" } } },
+    { "name": "14 - desactiver la source active (409)", "request": { "method": "PUT", "header": [ { "key": "Content-Type", "value": "application/json" } ], "url": "{{base}}/api/sources/1",
+      "body": { "mode": "raw", "raw": "{ \"nom\": \"AviationWeather METAR\", \"urlApi\": \"https://aviationweather.gov/api/data/metar\", \"urlTest\": \"https://aviationweather.gov/api/data/metar?ids=DTTA&format=json\", \"priorite\": 1, \"statut\": \"DESACTIVEE\" }" } } }
+  ]
+}
